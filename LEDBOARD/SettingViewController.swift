@@ -16,6 +16,9 @@ class SettingViewController: UIViewController {
 
     @IBOutlet weak var textField: UITextField!
     
+    //settingViewController의 textfield가 초기화 되지 않도록 ViewController의 label text데이터를 넘겨 받기위한 변수
+    var ledText : String?
+    
     @IBOutlet weak var yellowBtn: UIButton!
     @IBOutlet weak var purpleBtn: UIButton!
     @IBOutlet weak var greenBtn: UIButton!
@@ -29,7 +32,17 @@ class SettingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.configureView()
     }
+    //settingViewController에 입력이 끝난후 다시 ViewController로 돌아가면 settingViewController가 초기화 되어있는데, 이를방지
+    private func configureView(){
+        if let ledText = self.ledText {
+            self.textField.text = ledText
+        }
+        self.changeTextColorBtn(color: self.textColor)
+        self.changeBackgroundColorBtn(color: self.backgroundColor)
+    }
+    
     //하나의 버튼에 대해서만 Action함수 걸어놓고, 나머지 버튼은 동일함수에 연결만 하면됨
     //세개의 버튼을 누를때마다 모두 동일한 tabTextColrBtn이 호출되지만 세개의 버튼 중 어떠한 버튼을 눌렀는지는 sender파라미터로 알 수 잇음!
     //각 버튼에 해당하는 인스턴스가 sender로 전달
